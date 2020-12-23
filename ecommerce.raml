@@ -1,0 +1,109 @@
+#%RAML 1.0
+title: Ecommerce
+
+description: This api specification contains E-commrce operations like SubmitOrder, UpdateOrder and CancelOrder
+
+baseUri: EcommerceOperations
+securitySchemes:
+  basic: !include security/basicSecurityScheme.raml
+
+securedBy:
+  - basic
+    
+
+/SubmitOrder:
+  post:
+    body:
+      application/json:
+        example:
+          {
+            "itemname": iphone,
+             "ItemPrice": 10
+          }
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              {
+                "Status": 200,
+                "Message": Order submitted successfully
+              }
+      500:
+        body:
+          application/json:
+            example:
+              {
+                "Status": 500,
+                "Message": Internal server error
+              }
+
+/UpdateOrder:
+  put:
+    queryParameters:
+      Id:
+        required: true
+        type: integer
+      OrderId:
+        description: Enter order Id
+        required: true
+        type: integer
+    body:
+      application/json:
+        example:
+          {
+            "itemname": iphone,
+             "ItemPrice": 20
+          }
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              {
+                "Status": 200,
+                "Message": Order updated successfully
+              }
+      500:
+        body:
+          application/json:
+            example:
+              {
+                "Status": 500,
+                "Message": Internal server error
+              }
+  
+
+/CancelOrder:
+  post:
+    queryParameters:
+      Id:
+        required: true
+        type: integer
+      OrderId:
+        description: Enter order Id
+        required: true
+        type: integer
+    body:
+      application/json:
+        example:
+          {
+            "orderID": 12345
+          }
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              {
+                "Status": 200,
+                "Message": Order updated successfully
+              }
+      500:
+        body:
+          application/json:
+            example:
+              {
+                "Status": 500,
+                "Message": Internal server error
+              }
